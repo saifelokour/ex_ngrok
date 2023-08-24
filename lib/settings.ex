@@ -45,8 +45,10 @@ defmodule Ngrok.Settings do
   end
 
   @spec announce(map) :: map
-  defp announce(settings) do
-    Logger.info "ex_ngrok: Ngrok tunnel available at #{settings["public_url"]}"
+  defp announce(%{"public_url" => public_url} = settings) do
+    Logger.info "ex_ngrok: Ngrok tunnel available at #{public_url}"
     settings
   end
+
+  defp announce(settings), do: settings
 end
