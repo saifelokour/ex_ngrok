@@ -9,8 +9,14 @@ defmodule Ngrok do
   def start(_type, _args) do
 
     children = [
-      Ngrok.Executable,
-      Ngrok.Settings,
+      %{
+        id: Ngrok.Executable,
+        start: {Ngrok.Executable, :start_link, []}
+      },
+      %{
+        id: Ngrok.Settings,
+        start: {Ngrok.Settings, :start_link, []}
+      }
     ]
 
     opts = [strategy: :rest_for_one, name: Ngrok.Supervisor]
